@@ -229,6 +229,10 @@ body {
 }
 
 .work-link {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     color: #1a1a1a;
     text-decoration: underline;
     font-size: 14px;
