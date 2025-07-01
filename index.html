@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrot'sTrashCan</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="meteors"></div>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">DESIGNER</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pages/about.html">About</a></li>
+                <li><a href="pages/portfolio.html">Portfolio</a></li>
+                <li><a href="pages/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 首页横幅 -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">YOU KNOW WHO</h1>
+                <p class="hero-subtitle">A Mysterious Person</p>
+                <div class="hero-description">
+                    <p>Focused on creating trash and solving all useful things.</p>
+                </div>
+                <div class="hero-actions">
+                    <a href="pages/portfolio.html" class="btn-primary">View Portfolio</a>
+                    <a href="pages/about.html" class="btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 精选作品 -->
+        <section class="featured-works">
+            <div class="section-header">
+                <h2>Featured Works</h2>
+                <p>Recent Design Projects</p>
+            </div>
+            <div class="works-grid">
+                <article class="work-item">
+                    <div class="work-image">
+                        <img src="assets/img/work1.jfif" alt="Project 1">
+                    </div>
+                    <div class="work-info">
+                        <h3>Carrot</h3>
+                        <p>UI Design / User Experience</p>
+                        <a href="pages/portfolio.html" class="work-link">View Details</a>
+                    </div>
+                </article>
+                <article class="work-item">
+                    <div class="work-image">
+                        <img src="assets/img/work2.png" alt="Project 2">
+                    </div>
+                    <div class="work-info">
+                        <h3>Not Tasty</h3>
+                        <p>Brand Design / Visual Identity</p>
+                        <a href="pages/portfolio.html" class="work-link">View Details</a>
+                    </div>
+                </article>
+                <article class="work-item">
+                    <div class="work-image">
+                        <img src="assets/img/work3.jfif" alt="Project 3">
+                    </div>
+                    <div class="work-info">
+                        <h3>Go Extinct</h3>
+                        <p>Mobile App / Interface Design</p>
+                        <a href="pages/portfolio.html" class="work-link">View Details</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 技能展示 -->
+        <section class="skills">
+            <div class="section-header">
+                <h2>Skills</h2>
+                <p>Design Tools & Expertise</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Design Tools</h3>
+                    <ul>
+                        <li>Figma</li>
+                        <li>Adobe XD</li>
+                        <li>Sketch</li>
+                        <li>Photoshop</li>
+                        <li>Illustrator</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Design Fields</h3>
+                    <ul>
+                        <li>User Interface Design</li>
+                        <li>User Experience Design</li>
+                        <li>Brand Design</li>
+                        <li>Mobile App Design</li>
+                        <li>Web Design</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Other Skills</h3>
+                    <ul>
+                        <li>Prototyping</li>
+                        <li>User Research</li>
+                        <li>Design Systems</li>
+                        <li>Frontend Basics</li>
+                        <li>Project Management</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Snake Game Section -->
+        <section class="snake-game-section">
+            <div class="section-header">
+                <h2>Snake Game</h2>
+                <p>Play a classic Snake game!</p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <canvas id="snake-game" width="400" height="400" style="background: #111; border: 2px solid #ffe600;"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p>&copy; 2025 Carrot. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="pages/about.html">About</a>
+                <a href="pages/portfolio.html">Portfolio</a>
+                <a href="pages/contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/snake.js"></script>
+</body>
+</html> 
