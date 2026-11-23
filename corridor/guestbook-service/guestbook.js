@@ -1,6 +1,6 @@
 (() => {
   // Set to the deployed Worker URL to enable shared messages.
-  const endpoint = '';
+  const endpoint = 'https://gia-corridor-guestbook.evaderingia2004.workers.dev';
   const avatars = ['🌙','🦉','🐈‍⬛','🦋','🐇','🦊','🕯️','🪶'];
   const names = ['夜行者','纸灯','拾影人','远窗','黑猫','雾中客','赤月','回声'];
   async function identity() {
@@ -104,3 +104,4 @@
     } catch { status.textContent = '留言区暂时无法加载，请刷新后重试。'; }
   };
 })();
+
