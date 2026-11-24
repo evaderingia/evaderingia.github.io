@@ -3,22 +3,48 @@
   const endpoint = 'https://gia-corridor-guestbook.evaderingia2004.workers.dev';
   const avatars = ['🌙','🦉','🐈‍⬛','🦋','🐇','🦊','🕯️','🪶'];
   const names = ['夜行者','纸灯','拾影人','远窗','黑猫','雾中客','赤月','回声'];
+  let sessionVisitor;
+  function visitorId() {
+    if (globalThis.crypto?.randomUUID) return crypto.randomUUID();
+    const bytes = new Uint8Array(16);
+    if (globalThis.crypto?.getRandomValues) crypto.getRandomValues(bytes);
+    else for (let i = 0; i < bytes.length; i++) bytes[i] = Math.floor(Math.random() * 256);
+    bytes[6] = (bytes[6] & 15) | 64;
+    bytes[8] = (bytes[8] & 63) | 128;
+    const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('');
+    return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
+  }
   async function identity() {
-    let visitor = localStorage.getItem('gia-guest-id');
-    if (!visitor) {
-      visitor = crypto.randomUUID();
-      localStorage.setItem('gia-guest-id',visitor);
+    let visitor = sessionVisitor;
+    try { visitor = localStorage.getItem('gia-guest-id') || visitor; } catch {}
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(visitor || '')) {
+      visitor = visitorId();
+      try { localStorage.setItem('gia-guest-id',visitor); } catch {}
     }
-    const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(visitor)));
-    return {visitor,name:names[bytes[0]%8]+' '+String(bytes[1]*256+bytes[2]).padStart(5,'0'),avatar:bytes[3]%8};
+    sessionVisitor = visitor;
+    try {
+      const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(visitor)));
+      return {visitor,name:names[bytes[0]%8]+' '+String(bytes[1]*256+bytes[2]).padStart(5,'0'),avatar:bytes[3]%8};
+    } catch {
+      return {visitor,name:'匿名访客',avatar:0};
+    }
   }
   async function api(path, data, token) {
-    const result = await fetch(endpoint+path,data ? {method:'POST',headers:{
-      'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})
-    },body:JSON.stringify(data)} : undefined);
-    const payload = await result.json();
-    if (!result.ok) throw new Error(payload.error || '请求失败');
-    return payload;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 12000);
+    try {
+      let result;
+      try {
+        result = await fetch(endpoint+path,{signal:controller.signal,...(data ? {method:'POST',headers:{
+          'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})
+        },body:JSON.stringify(data)} : {})});
+      } catch {
+        throw new Error('暂时连不上留言服务。请稍后重试，或用系统浏览器打开此页。');
+      }
+      const payload = await result.json();
+      if (!result.ok) throw new Error(payload.error || '请求失败');
+      return payload;
+    } finally { clearTimeout(timer); }
   }
   window.openGuestbook = async root => {
     const find = selector => root.querySelector(selector);
@@ -89,19 +115,19 @@
       submit.disabled = true;
       try {
         if (endpoint) await api('/messages',{visitor:author.visitor,body});
-        else writeDraft([{id:crypto.randomUUID(),name:author.name,avatar:author.avatar,body},...readDraft()]);
+        else writeDraft([{id:visitorId(),name:author.name,avatar:author.avatar,body},...readDraft()]);
         form.reset();
-        await refresh();
         status.textContent = '留言已发布。';
+        try { await refresh(); } catch { status.textContent = '留言已保存，列表暂时无法刷新。'; }
       } catch (error) { status.textContent = error.message; }
       finally { submit.disabled = false; }
     };
     try {
       author = await identity();
       find('.guest-identity').textContent = '你的匿名身份：'+avatars[author.avatar]+' '+author.name;
-      await refresh();
       submit.disabled = false;
-    } catch { status.textContent = '留言区暂时无法加载，请刷新后重试。'; }
+      await refresh();
+    } catch (error) { status.textContent = error.message; }
   };
 })();
 
