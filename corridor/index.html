@@ -276,11 +276,58 @@ nav{z-index:4}
 .media-tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}.media-tools label{display:flex;flex-direction:column;gap:4px;color:var(--muted)}.media-tools input,.media-tools select{font:inherit;color:var(--paper);background:#180e11;border:1px solid #8e5757;padding:7px}.media-list article{border-top:1px solid #653238;padding:14px 0}.media-list a{display:flex;gap:18px;align-items:center;text-decoration:none}.media-list img{width:clamp(84px,20vw,142px);aspect-ratio:3/4;object-fit:cover}.media-list h3,.media-list p{margin:.2em 0}.media-list time,.media-list span{color:var(--muted)}.media-list a:hover h3,.media-list a:focus-visible h3{text-decoration:underline}
 .writing-list article{border-top:1px solid #653238;padding:12px 0}.writing-list a{display:grid;grid-template-columns:clamp(76px,19vw,112px) minmax(0,1fr);align-items:center;gap:clamp(10px,3vw,18px);text-decoration:none}.writing-list img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:#180e11}.writing-list h3{margin:.2em 0 0;line-height:1.4}.writing-list time{color:var(--muted);font-size:.86rem}.writing-list a:hover h3,.writing-list a:focus-visible h3{text-decoration:underline}.graphic-work{width:min(100%,420px);margin:0 auto}.graphic-work a,.graphic-work img{display:block}.graphic-work img{width:100%;height:auto}.graphic-work figcaption{border-top:1px solid #653238;margin-top:14px;padding-top:10px}.graphic-work h3{margin:0}.graphic-work time{color:var(--muted);font-size:.86rem}.graphic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}@media(max-width:540px){.graphic-grid{grid-template-columns:1fr}}
 .dog-corner{max-width:460px;margin:auto;cursor:grab}.dog-photo{position:relative;overflow:hidden;border:1px solid #885051}.dog-photo img{display:block;width:100%;height:auto}.dog-photo button{position:absolute;inset-inline:0;padding:0;border:0;background:transparent;cursor:grab;touch-action:manipulation}.dog-photo button:active{cursor:grabbing}.dog-photo button:focus-visible{outline:2px solid #fff1cb;outline-offset:-4px}.dog-photo [data-pet-dog="2"]{top:0;height:38%}.dog-photo [data-pet-dog="1"]{top:38%;height:25%}.dog-photo [data-pet-dog="0"]{top:63%;bottom:0}.dog-counts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:14px 0 0}.dog-counts div{border-top:1px solid #885051;padding:9px 2px}.dog-counts dd{margin:0;color:#ffc5bf;font-variant-numeric:tabular-nums}.dog-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.dog-burst{position:absolute;pointer-events:none;color:#ffb2bf;text-shadow:0 1px 5px #63212a;font-size:1.65rem;line-height:1;animation:dog-float .8s ease-out forwards}.dog-burst i,.dog-burst em{position:absolute;color:#fff0ac;font-size:.72em;font-style:normal}.dog-burst i{left:-18px;top:-7px}.dog-burst em{left:21px;top:-15px}@keyframes dog-float{0%{transform:translate(-50%,-50%) scale(.65)}35%{transform:translate(-50%,-95%) scale(1.2)}100%{transform:translate(-50%,-220%);opacity:0}}@media(prefers-reduced-motion:reduce){.dog-burst{animation:none;transform:translate(-50%,-60%)}}
+
+.floor-print{position:absolute;z-index:2;pointer-events:none;width:25px;height:47px;transform:translate(-50%,-50%) rotate(var(--angle)) scale(var(--depth));animation:floor-print-fade 620ms ease-out forwards;filter:drop-shadow(0 0 3px #d82739a0)}
+.floor-print::before,.floor-print::after{content:"";position:absolute;background:repeating-linear-gradient(-12deg,#ff4353 0 4px,#c0192f 4px 6px)}
+.floor-print::before{inset:0 1px 17px;border-radius:65% 55% 42% 48%;transform:skewX(-7deg)}
+.floor-print::after{inset:34px 4px 0 6px;border-radius:20% 20% 45% 45%}
+@keyframes floor-print-fade{0%{opacity:1}38%{opacity:.82}100%{opacity:0}}
+
+.corridor-dog{position:absolute;z-index:3;transform-origin:center bottom;pointer-events:none;left:50%;top:0;width:80px;height:58px;opacity:0;animation:dog-crossing 24s linear infinite}
+.corridor-dog i,.corridor-dog b{position:absolute;display:block;background:#121011;box-shadow:0 -1px #a87e7b70}
+.corridor-dog .dog-body{width:39px;height:33px;left:20px;top:19px;border-radius:48% 48% 43% 43%}
+.corridor-dog .dog-head{width:24px;height:20px;left:28px;top:10px;border-radius:50%}
+.corridor-dog .dog-head::before,.corridor-dog .dog-head::after{content:"";position:absolute;top:1px;width:10px;height:16px;background:#121011;border-radius:55% 55% 70% 70%}
+.corridor-dog .dog-head::before{left:-6px;transform:rotate(20deg)}
+.corridor-dog .dog-head::after{right:-6px;transform:rotate(-20deg)}
+.corridor-dog .dog-tail{width:6px;height:24px;left:37px;top:12px;border-radius:60%;transform-origin:center bottom;animation:hall-tail .23s ease-in-out infinite alternate}
+.corridor-dog b{width:9px;height:20px;top:38px;border-radius:45%;transform-origin:top;animation:hall-stride .24s ease-in-out infinite alternate}
+.corridor-dog b:nth-of-type(1){left:24px}.corridor-dog b:nth-of-type(2){left:47px;animation-delay:-.24s}
+@keyframes hall-stride{from{transform:translateY(-4px) scaleY(.74)}to{transform:translateY(0) scaleY(1)}}
+@keyframes hall-tail{from{transform:rotate(-25deg)}to{transform:rotate(25deg)}}
+.corridor-dog{animation:none}
+.corridor-dog.critter-running{animation:dog-crossing var(--run-time,5s) linear both}
+@keyframes dog-crossing{
+  0%{left:var(--start-x);top:98%;opacity:0;transform:translate(-50%,-100%) scale(var(--start-scale))}
+  10%{opacity:1}
+  75%{left:var(--door-x);top:var(--door-y);opacity:1;transform:translate(-50%,-100%) scale(.61)}
+  100%{left:var(--fade-x);top:var(--fade-y);opacity:0;transform:translate(-50%,-100%) scale(.45)}
+}
+
+.corridor-dog{width:80px;height:98px;filter:drop-shadow(0 0 5px #51efaa96) drop-shadow(0 0 12px #21a96c50)}
+.corridor-dog i,.corridor-dog b{background:#14231d;box-shadow:inset 1px 1px #7cf5b280,1px 0 #54d99970}
+.corridor-dog .dog-body{width:33px;height:42px;left:23px;top:23px;border-radius:55% 55% 39% 39%}
+.corridor-dog .dog-head{width:17px;height:29px;left:31px;top:2px;border-radius:48%}
+.corridor-dog .dog-head::before,.corridor-dog .dog-head::after{width:6px;height:11px;background:#22362a}
+.corridor-dog .dog-head::before{left:-3px}.corridor-dog .dog-head::after{right:-3px}
+.corridor-dog .dog-tail{width:5px;height:30px;left:37px;top:48px;border-radius:40% 70% 70% 45%;transform-origin:center top}
+.corridor-dog b{width:6px;height:37px;top:57px;border-radius:45% 45% 35% 35%}
+.corridor-dog b:nth-of-type(1){left:26px}.corridor-dog b:nth-of-type(2){left:47px}
+.corridor-cat{filter:drop-shadow(0 0 5px #ff385caa) drop-shadow(0 0 12px #eb214d66)}
+.corridor-cat i,.corridor-cat b{background:#29151a;box-shadow:inset 1px 1px #ff839088,1px 0 #ff4c6970}
+.corridor-cat .dog-body{width:25px;height:34px;left:27px;top:26px}
+.corridor-cat .dog-head{width:20px;height:21px;left:30px;top:12px}
+.corridor-cat .dog-head::before,.corridor-cat .dog-head::after{top:-7px;width:9px;height:12px;background:#421a26;clip-path:polygon(50% 0,100% 100%,0 100%);transform:none}
+.corridor-cat .dog-head::before{left:0}.corridor-cat .dog-head::after{right:0}
+.corridor-cat .dog-tail{top:24px;height:32px;transform-origin:center bottom;animation-duration:.65s}
+.corridor-cat b{top:53px;height:32px;animation-duration:.48s}
+.corridor-cat b:nth-of-type(1){left:29px}.corridor-cat b:nth-of-type(2){left:45px;animation-delay:-.48s}
+@media(prefers-reduced-motion:reduce){.corridor-dog{display:none}}
 </style>
 </head>
 <body>
 <main class="hero">
-<div class="scene" aria-hidden="true"></div><div class="architecture" aria-hidden="true"><i class="ceiling"></i><i class="floor"></i><i class="wall left"></i><i class="wall right"></i></div>
+<div class="scene" aria-hidden="true"></div><div class="architecture" aria-hidden="true"><i class="ceiling"></i><i class="floor"></i><i class="wall left"></i><i class="wall right"></i></div><div class="corridor-dog" aria-hidden="true"><i class="dog-head"></i><b></b><b></b><i class="dog-body"></i><i class="dog-tail"></i></div><div class="corridor-dog corridor-cat" aria-hidden="true"><i class="dog-head"></i><b></b><b></b><i class="dog-body"></i><i class="dog-tail"></i></div>
 
 <div class="lead"><h1>进入空间 <span lang="en">Enter<br>the Space</span></h1><p class="floating-caption">空间叙事 · 视觉创作<span lang="en">Spatial Narrative<br>Visual Art</span></p></div>
 <div class="end-wall" aria-label="走廊尽头的预留展示窗 / Reserved display window"><div class="end-window"></div></div><div class="distant-doors" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="continuous-lasers" aria-hidden="true"><div><i style="--beam-y:6.0%"></i><i style="--beam-y:11.4%"></i><i style="--beam-y:16.8%"></i><i style="--beam-y:22.2%"></i><i style="--beam-y:27.6%"></i><i style="--beam-y:33.0%"></i><i style="--beam-y:38.4%"></i><i style="--beam-y:43.8%"></i><i style="--beam-y:49.2%"></i><i style="--beam-y:54.6%"></i><i style="--beam-y:60.0%"></i><i style="--beam-y:65.4%"></i><i style="--beam-y:70.8%"></i><i style="--beam-y:76.2%"></i><i style="--beam-y:81.6%"></i><i style="--beam-y:87.0%"></i><i style="--beam-y:92.4%"></i></div><div><i style="--beam-y:6.0%"></i><i style="--beam-y:11.4%"></i><i style="--beam-y:16.8%"></i><i style="--beam-y:22.2%"></i><i style="--beam-y:27.6%"></i><i style="--beam-y:33.0%"></i><i style="--beam-y:38.4%"></i><i style="--beam-y:43.8%"></i><i style="--beam-y:49.2%"></i><i style="--beam-y:54.6%"></i><i style="--beam-y:60.0%"></i><i style="--beam-y:65.4%"></i><i style="--beam-y:70.8%"></i><i style="--beam-y:76.2%"></i><i style="--beam-y:81.6%"></i><i style="--beam-y:87.0%"></i><i style="--beam-y:92.4%"></i></div></div><nav aria-label="作品栏目 / Portfolio rooms">
@@ -342,14 +389,32 @@ nav{z-index:4}
 const panel = document.querySelector('#section');
 const title = document.querySelector('#section-title');
 const content = document.querySelector('#section-content');
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', event => {
+let openingDoor = false;
+document.querySelectorAll('nav a').forEach((link, index) => {
+  link.addEventListener('click', async event => {
     event.preventDefault();
+    if (openingDoor || panel.open) return;
+    openingDoor = true;
+    let swing;
+    try {
+      if (event.isTrusted && !matchMedia('(prefers-reduced-motion: reduce)').matches && link.animate) {
+        const hinge = index % 2 === 0 ? 'left center' : 'right center';
+        const angle = index % 2 === 0 ? 29 : -29;
+        swing = link.animate([
+          {rotate: 'y 0deg', transformOrigin: hinge},
+          {rotate: 'y ' + angle + 'deg', transformOrigin: hinge}
+        ], {duration: 240, easing: 'cubic-bezier(.2,.65,.35,1)', fill: 'forwards'});
+        await swing.finished.catch(() => {});
+      }
+    } finally {
+      openingDoor = false;
+    }
     const template = document.querySelector(link.hash);
     title.textContent = link.querySelector('.plaque > span').textContent + ' / ' + link.dataset.english;
     content.replaceChildren(template.content.cloneNode(true));
     if (link.hash === "#extras") window.openDogCorner(content.querySelector(".dog-corner"));
     panel.showModal();
+    swing?.cancel();
     if (link.hash === "#media") setupMediaArchive(content);
     if (link.hash === "#guestbook") window.openGuestbook(content.querySelector(".guestbook"));
   });
@@ -411,6 +476,63 @@ function setupMediaArchive(root) {
 if (location.hash === '#design' || location.hash === '#media') {
   document.querySelector('nav a[href="' + location.hash + '"]').click();
 }
+</script>
+
+<script>
+(() => {
+  const hero = document.querySelector('.hero');
+  const floor = hero.querySelector('.floor');
+  let left = false;
+  hero.addEventListener('click', event => {
+    if (event.detail === 0 || event.target.closest('a,button,input,textarea,select,dialog,[role="button"]')) return;
+    const bounds = floor.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    const floorEdge = .44 + 1.12 * Math.abs(x - .5);
+    if (y < floorEdge || y > 1) return;
+    const mark = document.createElement('span');
+    mark.className = 'floor-print';
+    mark.style.left = (x * 100) + '%';
+    mark.style.top = (y * 100) + '%';
+    mark.style.setProperty('--angle', (left ? -13 : 13) + 'deg');
+    mark.style.setProperty('--depth', .35 + .65 * (y - .44) / .56);
+    left = !left;
+    floor.append(mark);
+    setTimeout(() => mark.remove(), 660);
+  });
+})();
+</script>
+
+<script>
+(() => {
+  const hero = document.querySelector('.hero');
+  const dog = hero.querySelector('.corridor-dog');
+  const cat = hero.querySelector('.corridor-cat');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  function runCritter() {
+    if (!document.hidden && !reduced.matches) {
+      const isCat = Math.random() < .5;
+      const critter = isCat ? cat : dog;
+      const side = isCat ? -1 : 1;
+      // Both lanes converge toward the center without crossing it.
+      critter.style.setProperty('--start-x', (50 + side * 24) + '%');
+      critter.style.setProperty('--start-scale', isCat ? '1.12' : '1.52');
+      critter.style.setProperty('--door-x', (50 + side * 11.25) + '%');
+      critter.style.setProperty('--door-y', '68%');
+      critter.style.setProperty('--fade-x', (50 + side * 7) + '%');
+      critter.style.setProperty('--fade-y', '58%');
+      critter.style.setProperty('--run-time', isCat ? '6.2s' : '4.8s');
+      critter.classList.add('critter-running');
+    }
+    setTimeout(runCritter, 15000);
+  }
+  for (const critter of [dog, cat]) {
+    critter.addEventListener('animationend', event => {
+      if (event.target === critter) critter.classList.remove('critter-running');
+    });
+  }
+  setTimeout(runCritter, 3000);
+})();
 </script>
 </body>
 </html>
