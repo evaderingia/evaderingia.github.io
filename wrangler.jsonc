@@ -1,0 +1,8 @@
+{
+  "name": "gia-corridor",
+  "pages_build_output_dir": ".cloudflare-dist",
+  "compatibility_date": "2026-11-24",
+  "d1_databases": [
+    { "binding": "DB", "database_name": "gia-corridor-guestbook", "database_id": "c70b4b36-2815-429a-a286-06c547338c55" }
+  ]
+}
