@@ -274,7 +274,9 @@ nav{z-index:4}
 @media(max-width:620px){.floating-caption{display:none}}
 .guestbook textarea,.guestbook input{display:block;width:100%;font:inherit;color:inherit;background:#1b1012;border:1px solid #885051;padding:8px;margin:5px 0 10px}.guest-messages article{border-top:1px solid #633237;padding:12px 0}.guest-messages p{white-space:pre-wrap;overflow-wrap:anywhere;margin:5px 0}.guest-messages .guest-reply{margin-left:1rem;color:#f8bcb2}.guest-identity{font-weight:700}.guest-mode{color:var(--muted)}
 .media-tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}.media-tools label{display:flex;flex-direction:column;gap:4px;color:var(--muted)}.media-tools input,.media-tools select{font:inherit;color:var(--paper);background:#180e11;border:1px solid #8e5757;padding:7px}.media-list article{border-top:1px solid #653238;padding:14px 0}.media-list a{display:flex;gap:18px;align-items:center;text-decoration:none}.media-list img{width:clamp(84px,20vw,142px);aspect-ratio:3/4;object-fit:cover}.media-list h3,.media-list p{margin:.2em 0}.media-list time,.media-list span{color:var(--muted)}.media-list a:hover h3,.media-list a:focus-visible h3{text-decoration:underline}
-.writing-list article{border-top:1px solid #653238;padding:12px 0}.writing-list a{display:grid;grid-template-columns:clamp(76px,19vw,112px) minmax(0,1fr);align-items:center;gap:clamp(10px,3vw,18px);text-decoration:none}.writing-list img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:#180e11}.writing-list h3{margin:.2em 0 0;line-height:1.4}.writing-list time{color:var(--muted);font-size:.86rem}.writing-list a:hover h3,.writing-list a:focus-visible h3{text-decoration:underline}.graphic-work{width:min(100%,420px);margin:0 auto}.graphic-work a,.graphic-work img{display:block}.graphic-work img{width:100%;height:auto}.graphic-work figcaption{border-top:1px solid #653238;margin-top:14px;padding-top:10px}.graphic-work h3{margin:0}.graphic-work time{color:var(--muted);font-size:.86rem}.graphic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}@media(max-width:540px){.graphic-grid{grid-template-columns:1fr}}</style>
+.writing-list article{border-top:1px solid #653238;padding:12px 0}.writing-list a{display:grid;grid-template-columns:clamp(76px,19vw,112px) minmax(0,1fr);align-items:center;gap:clamp(10px,3vw,18px);text-decoration:none}.writing-list img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:#180e11}.writing-list h3{margin:.2em 0 0;line-height:1.4}.writing-list time{color:var(--muted);font-size:.86rem}.writing-list a:hover h3,.writing-list a:focus-visible h3{text-decoration:underline}.graphic-work{width:min(100%,420px);margin:0 auto}.graphic-work a,.graphic-work img{display:block}.graphic-work img{width:100%;height:auto}.graphic-work figcaption{border-top:1px solid #653238;margin-top:14px;padding-top:10px}.graphic-work h3{margin:0}.graphic-work time{color:var(--muted);font-size:.86rem}.graphic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}@media(max-width:540px){.graphic-grid{grid-template-columns:1fr}}
+.dog-corner{max-width:460px;margin:auto;cursor:grab}.dog-photo{position:relative;overflow:hidden;border:1px solid #885051}.dog-photo img{display:block;width:100%;height:auto}.dog-photo button{position:absolute;inset-inline:0;padding:0;border:0;background:transparent;cursor:grab;touch-action:manipulation}.dog-photo button:active{cursor:grabbing}.dog-photo button:focus-visible{outline:2px solid #fff1cb;outline-offset:-4px}.dog-photo [data-pet-dog="2"]{top:0;height:38%}.dog-photo [data-pet-dog="1"]{top:38%;height:25%}.dog-photo [data-pet-dog="0"]{top:63%;bottom:0}.dog-counts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:14px 0 0}.dog-counts div{border-top:1px solid #885051;padding:9px 2px}.dog-counts dd{margin:0;color:#ffc5bf;font-variant-numeric:tabular-nums}.dog-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.dog-burst{position:absolute;pointer-events:none;color:#ffb2bf;text-shadow:0 1px 5px #63212a;font-size:1.65rem;line-height:1;animation:dog-float .8s ease-out forwards}.dog-burst i,.dog-burst em{position:absolute;color:#fff0ac;font-size:.72em;font-style:normal}.dog-burst i{left:-18px;top:-7px}.dog-burst em{left:21px;top:-15px}@keyframes dog-float{0%{transform:translate(-50%,-50%) scale(.65)}35%{transform:translate(-50%,-95%) scale(1.2)}100%{transform:translate(-50%,-220%);opacity:0}}@media(prefers-reduced-motion:reduce){.dog-burst{animation:none;transform:translate(-50%,-60%)}}
+</style>
 </head>
 <body>
 <main class="hero">
@@ -325,7 +327,18 @@ nav{z-index:4}
 <div class="guest-messages"></div>
 </section>
 </template>
-<template id="extras"><p>这里留给之后想展出的内容。</p><p lang="en">Reserved for future work.</p></template><script src="guestbook-service/guestbook.js?v=mobile-1"></script><script>
+<template id="extras">
+<section class="dog-corner">
+<p>此处等待新的内容被录入，先摸摸小狗吧！</p>
+<div class="dog-photo">
+<img src="extras/dogs.jpg" alt="三只小狗叠在一起，从下到上是可乐、大宝宝、布丁" width="1440" height="1922">
+<button type="button" data-pet-dog="2" aria-label="摸摸布丁"></button>
+<button type="button" data-pet-dog="1" aria-label="摸摸大宝宝"></button>
+<button type="button" data-pet-dog="0" aria-label="摸摸可乐"></button>
+</div>
+<dl class="dog-counts"><div><dt>可乐</dt><dd><span data-pet-count>0</span> 次</dd></div><div><dt>大宝宝</dt><dd><span data-pet-count>0</span> 次</dd></div><div><dt>布丁</dt><dd><span data-pet-count>0</span> 次</dd></div></dl>
+<p class="dog-status" role="status"></p>
+</section></template><script src="extras/petting.js"></script><script src="guestbook-service/guestbook.js?v=mobile-1"></script><script>
 const panel = document.querySelector('#section');
 const title = document.querySelector('#section-title');
 const content = document.querySelector('#section-content');
@@ -335,6 +348,7 @@ document.querySelectorAll('nav a').forEach(link => {
     const template = document.querySelector(link.hash);
     title.textContent = link.querySelector('.plaque > span').textContent + ' / ' + link.dataset.english;
     content.replaceChildren(template.content.cloneNode(true));
+    if (link.hash === "#extras") window.openDogCorner(content.querySelector(".dog-corner"));
     panel.showModal();
     if (link.hash === "#media") setupMediaArchive(content);
     if (link.hash === "#guestbook") window.openGuestbook(content.querySelector(".guestbook"));
