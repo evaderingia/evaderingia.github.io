@@ -402,6 +402,13 @@ nav{z-index:4}
 [data-corridor-theme="day"] .coin-lettering{color:#f2b6ad;text-shadow:-1px -1px 0 #f9cdc3,1px 1px 0 #914654,2px 2px 0 #773743}
 [data-corridor-theme="day"] .coin-edge{border-color:#da8e8c;background:repeating-linear-gradient(0deg,#ac686d 0 2px,#dc9590 2px 4px)}
 
+/* Settled coins use flat artwork so mobile compositors never pick the visible face. */
+.coin-face{-webkit-backface-visibility:hidden;transform:translateZ(7px)}
+.coin-tail{transform:rotateY(180deg) translateZ(7px)}
+.coin-disc[data-face="yes"] :is(.coin-tail,.coin-edge),
+.coin-disc[data-face="no"] :is(.coin-face:not(.coin-tail),.coin-edge),
+.coin-disc[data-face="edge"] .coin-face{display:none}
+.coin-disc[data-face] :is(.coin-face,.coin-edge){transform:none}
 </style>
 </head>
 <body>
@@ -531,7 +538,7 @@ coinDialog.className = 'coin-dialog';
 coinDialog.setAttribute('aria-labelledby','coin-heading');
 coinDialog.innerHTML = `<form method="dialog"><button class="coin-close" aria-label="关闭掷硬币窗口">×</button></form>
 <h2 id="coin-heading">我们在脚垫下发现了一枚硬币，<br>你有什么问题想要问它吗？</h2><p class="coin-subtitle" lang="en">We found a coin under the mat. What would you like to ask it?</p>
-<button class="coin-toss" type="button" aria-label="掷硬币"><span class="coin-disc" aria-hidden="true"><span class="coin-face"><span class="coin-lettering">YES</span></span><span class="coin-face coin-tail"><span class="coin-lettering">NO</span></span><span class="coin-edge"></span></span></button>
+<button class="coin-toss" type="button" aria-label="掷硬币"><span class="coin-disc" data-face="yes" aria-hidden="true"><span class="coin-face"><span class="coin-lettering">YES</span></span><span class="coin-face coin-tail"><span class="coin-lettering">NO</span></span><span class="coin-edge"></span></span></button>
 <p class="coin-status" role="status"></p>`;
 document.body.append(coinDialog);
 const toss = coinDialog.querySelector('.coin-toss');
@@ -548,10 +555,11 @@ toss.addEventListener('click', async () => {
   tossing = true;
   try {
     result.textContent = '';
-    const faces = [{angle:0,label:'YES 朝上'}, {angle:180,label:'NO 朝上'}, {angle:90,label:'中立 · 硬币立住了'}];
+    const faces = [{side:'yes',angle:0,label:'YES 朝上'}, {side:'no',angle:180,label:'NO 朝上'}, {side:'edge',angle:90,label:'中立 · 硬币立住了'}];
     const face = faces[Math.floor(Math.random() * faces.length)];
     const end = 1080 + face.angle;
     if (disc.animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      delete disc.dataset.face;
       await disc.animate([
         {transform:'rotateY(' + faceAngle + 'deg)'},
         {transform:'translateY(-34px) rotateY(570deg)'},
@@ -559,7 +567,7 @@ toss.addEventListener('click', async () => {
       ], {duration:700,easing:'ease-in-out'}).finished.catch(() => {});
     }
     faceAngle = face.angle;
-    disc.style.transform = 'rotateY(' + faceAngle + 'deg)';
+    disc.dataset.face = face.side;
     result.textContent = face.label;
   } finally {
     tossing = false;
