@@ -72,7 +72,7 @@ nav a:nth-child(5){--x:38%;--y:36.8%;--w:7%;--h:20.64%;--shape:0 0,100% 20.35%,1
   nav a:nth-child(even){--plate-angle:-13deg}
   nav a:nth-child(5){--x:36%;--y:35.6%;--w:9%;--h:24.08%;--shape:0 0,100% 22.43%,100% 58.14%,0 100%}
   nav a:nth-child(3){--x:23%;--y:27.8%;--w:13%;--h:46.44%;--shape:0 0,100% 16.8%,100% 68.65%,0 100%}
-  nav a:nth-child(4){--x:63%;--y:27.8%;--w:14%;--h:46.44%;--shape:0 18.09%,100% 0,100% 100%,0 66.24%}
+  nav a:nth-child(4){--x:64%;--y:27.8%;--w:13%;--h:46.44%;--shape:0 18.09%,100% 0,100% 100%,0 66.24%}
   nav a:nth-child(n) .plaque small{overflow-wrap:anywhere}
 }
 nav a .plaque{position:absolute;top:29%;left:50%;transform:translate(-50%,-50%) skewY(var(--plate-angle))}
@@ -143,7 +143,7 @@ nav a:nth-child(n+3) .door-handle{scale:.78}
 nav a:nth-child(n+5) .door-handle{scale:.57}
 @media(max-width:620px){
  nav a:nth-child(3){--y:20.24%;--h:54%;--shape:0 0,100% 21.19%,100% 73.04%,0 100%}
- nav a:nth-child(4){--y:20.24%;--h:54%;--shape:0 22.81%,100% 0,100% 100%,0 70.96%}
+ nav a:nth-child(4){--y:20.24%;--h:54%;--shape:0 21.19%,100% 0,100% 100%,0 73.04%}
  nav a:nth-child(5){--y:31.68%;--h:28%;--shape:0 0,100% 28.29%,100% 64%,0 100%}
  nav a:nth-child(6){--y:31.68%;--h:28%;--shape:0 28.29%,100% 0,100% 100%,0 64%}
 }
@@ -162,8 +162,8 @@ nav a:nth-child(5),nav a:nth-child(6){--vertical-sign-width:clamp(14px,1.5vw,22p
 nav a:nth-child(5){--x:38%;--w:5%;--shape:0 0,100% 18.33%,100% 76.67%,0 100%}
 nav a:nth-child(6){--x:57%;--w:5%;--shape:0 18.33%,100% 0,100% 100%,0 76.67%}
 @media(max-width:620px){
- nav a:nth-child(5){--x:36%;--w:6%;--shape:0 0,100% 18.86%,100% 76%,0 100%}
- nav a:nth-child(6){--x:58%;--w:6%;--shape:0 18.86%,100% 0,100% 100%,0 76%}
+ nav a:nth-child(5){--x:39%;--w:6%;--y:33.36%;--h:22.96%;--shape:0 0,100% 14.63%,100% 70.73%,0 100%}
+ nav a:nth-child(6){--x:55%;--w:6%;--y:33.36%;--h:22.96%;--shape:0 14.63%,100% 0,100% 100%,0 70.73%}
 }
 .distant-doors{position:absolute;inset:0;z-index:2;pointer-events:none}
 .distant-doors i{position:absolute;left:var(--left);top:var(--top);width:var(--width);height:var(--height);opacity:var(--opacity);background:#e18f88;clip-path:polygon(0 0,100% 18%,100% 77%,0 100%)}
@@ -409,6 +409,16 @@ nav{z-index:4}
 .coin-disc[data-face="no"] :is(.coin-face:not(.coin-tail),.coin-edge),
 .coin-disc[data-face="edge"] .coin-face{display:none}
 .coin-disc[data-face] :is(.coin-face,.coin-edge){transform:none}
+
+@media(max-width:620px){
+  .hero nav a:nth-child(n+5),.hero.daylit nav a:nth-child(n+5){clip-path:none;background:transparent;isolation:isolate}
+  .hero nav a:nth-child(n+5):is(:hover,:focus-visible),.hero.daylit nav a:nth-child(n+5):is(:hover,:focus-visible){background:transparent}
+  .hero nav a:nth-child(n+5)::before,.hero nav a:nth-child(n+5)::after{clip-path:polygon(var(--shape))}
+  .hero nav a:nth-child(n+5)::after{display:block;inset:0;z-index:-2;box-shadow:none;background:#4e1112}
+  .hero nav a:nth-child(n+5):is(:hover,:focus-visible)::after{background:#ff9a84}
+  .hero.daylit nav a:nth-child(n+5)::after{background:var(--day-door)}
+  .hero.daylit nav a:nth-child(n+5):is(:hover,:focus-visible)::after{background:#fffce2}
+}
 </style>
 </head>
 <body>
