@@ -1,0 +1,6 @@
+:root[data-corridor-theme="day"]{color-scheme:light;background:#f5f2e9;color:#263a33}
+[data-corridor-theme="day"] body{background:#f5f2e9;color:#263a33}
+[data-corridor-theme="day"] a{color:#216251}
+[data-corridor-theme="day"] :is(header,footer,nav,h2,.article-cover img){border-color:#b5c5ba}
+[data-corridor-theme="day"] :is(header p,figcaption,cite,footer,time){color:#4b6056}
+[data-corridor-theme="day"] blockquote{background:#e6ede4;color:#294b40;border-color:#629384}
