@@ -281,6 +281,8 @@ nav{z-index:4}
 .floor-print::before,.floor-print::after{content:"";position:absolute;background:repeating-linear-gradient(-12deg,#ff4353 0 4px,#c0192f 4px 6px)}
 .floor-print::before{inset:0 1px 17px;border-radius:65% 55% 42% 48%;transform:skewX(-7deg)}
 .floor-print::after{inset:34px 4px 0 6px;border-radius:20% 20% 45% 45%}
+.hero.daylit .floor-print{filter:drop-shadow(0 0 3px #555b6266)}
+.hero.daylit .floor-print::before,.hero.daylit .floor-print::after{background:repeating-linear-gradient(-12deg,#81858a 0 4px,#60646a 4px 6px)}
 @keyframes floor-print-fade{0%{opacity:1}38%{opacity:.82}100%{opacity:0}}
 
 .corridor-dog{position:absolute;z-index:3;transform-origin:center bottom;pointer-events:none;left:50%;top:0;width:80px;height:58px;opacity:0;animation:dog-crossing 24s linear infinite}
@@ -371,7 +373,7 @@ nav{z-index:4}
 .hero.daylit nav a:nth-child(n):is(:hover,:focus-visible){background:#fffce2}
 .hero.daylit .distant-doors i{background:#9ea89c}
 .hero.daylit .distant-doors i::after{background:var(--day-door)}
-.hero.daylit nav a .plaque{background:#fffaf0e8}
+.hero.daylit nav a .plaque{background:#fffaf0e8;box-shadow:0 1px 3px #263b3429}
 .hero.daylit nav a .plaque :is(span,small){color:#2f3832}
 .hero.daylit .threshold-mats i{background:repeating-linear-gradient(0deg,#9b8377 0 1px,#806c60 1px 3px)}
 .dawn-veil{position:fixed;inset:0;z-index:1000;background:#fff;opacity:0;pointer-events:none}
@@ -419,6 +421,13 @@ nav{z-index:4}
   .hero.daylit nav a:nth-child(n+5)::after{background:var(--day-door)}
   .hero.daylit nav a:nth-child(n+5):is(:hover,:focus-visible)::after{background:#fffce2}
 }
+.hero:not(.daylit) nav a:nth-child(n){background:transparent}
+.hero:not(.daylit) nav a:nth-child(n)::before{inset:0;clip-path:polygon(var(--shape))}
+.hero:not(.daylit) nav a:nth-child(n)::after{display:none}
+.door-outline{display:none;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;clip-path:polygon(var(--shape))}
+.hero:not(.daylit) .door-outline{display:block}
+.door-outline polygon{fill:none;stroke:#4e1112;stroke-width:4px;vector-effect:non-scaling-stroke}
+.hero:not(.daylit) nav a:is(:hover,:focus-visible) .door-outline polygon{stroke:#ff9a84}
 </style>
 </head>
 <body>
@@ -535,7 +544,15 @@ const thresholds = [...corridor.querySelectorAll('nav a')].map(door => {
     mat.setAttribute('aria-hidden', 'true');
   }
   matLayer.append(mat);
-  return {door, mat, hasCoin};
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('door-outline');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('viewBox', '0 0 100 100');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  const outline = document.createElementNS(svg.namespaceURI, 'polygon');
+  svg.append(outline);
+  door.prepend(svg);
+  return {door, mat, hasCoin, outline};
 });
 
 const coinMat = thresholds.find(entry => entry.hasCoin).mat;
@@ -584,8 +601,9 @@ toss.addEventListener('click', async () => {
   }
 });
 function placeThresholdMats() {
-  for (const {door, mat, hasCoin} of thresholds) {
+  for (const {door, mat, hasCoin, outline} of thresholds) {
     const style = getComputedStyle(door);
+    outline.setAttribute('points', style.getPropertyValue('--shape').replace(/%/g, '').trim());
     const x = parseFloat(style.getPropertyValue('--x'));
     const width = parseFloat(style.getPropertyValue('--w'));
     const left = x < 50;
